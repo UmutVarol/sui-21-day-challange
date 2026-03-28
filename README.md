@@ -283,3 +283,5 @@ After 21 days, you'll have:
 - Ability to build your own Move programs
 
 **Happy learning!**
+## Developer: Umut Varol
+## Developer: Umut Varol
