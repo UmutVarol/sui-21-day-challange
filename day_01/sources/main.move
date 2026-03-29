@@ -17,6 +17,8 @@ module challenge::day_01 {
     // const MY_ADDRESS: address = @0x1;
     //
     // Remember: Constants must be named in UPPERCASE!
-
+const BENIM_SAYIM: u64 = 100;
+const SUI_CHALLANGE: bool = true;
+const TEST_ADRESI: address = @0x123;
 }
 
