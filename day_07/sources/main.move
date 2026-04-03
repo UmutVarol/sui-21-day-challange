@@ -57,19 +57,31 @@ module challenge::day_07 {
     // - Creates an empty list
     // - Adds 1-2 habits
     // - Checks that the list length is correct
-    // #[test]
-    // fun test_add_habits() {
-    //     // Your code here
-    //     // Use b"Exercise".to_string() to create a String
-    // }
+    #[test]
+    fun test_add_habits() {
+        let mut list = empty_list();
+        let habit = make_habit(b"Exercise");
+        add_habit(&mut list, habit);
+        
+        // Listenin uzunluğu 1 mi diye kontrol ediyoruz. Eğer değilse 0 hata kodunu döndürür.
+        assert!(vector::length(&list.habits) == 1, 0);
+    }
 
     // TODO: Write a test 'test_complete_habit' that:
     // - Creates a list and adds a habit
     // - Completes the habit
     // - Checks that completed == true
-    // #[test]
-    // fun test_complete_habit() {
-    //     // Your code here
-    // }
+    #[test]
+    fun test_complete_habit() {
+        let mut list = empty_list();
+        let habit = make_habit(b"Read Book");
+        add_habit(&mut list, habit);
+        
+        // 0. sıradaki (ilk) alışkanlığı tamamla
+        complete_habit(&mut list, 0);
+        
+        // Tamamlanıp tamamlanmadığını kontrol et. Değilse 1 hata kodunu döndürür.
+        let check_habit = vector::borrow(&list.habits, 0);
+        assert!(check_habit.completed == true, 1);
+    }
 }
-
