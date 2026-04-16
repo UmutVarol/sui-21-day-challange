@@ -66,10 +66,13 @@ module challenge::day_13 {
     // - Returns u64 (sum of all task rewards)
     // - Loops through all tasks and sums their rewards
     public fun total_reward(board: &TaskBoard): u64 {
+        // Your code here
+        // Initialize total = 0
         let len = vector::length(&board.tasks);
-        let mut total = 0;
         let mut i = 0;
+        let mut total: u64 = 0;
         
+        // Loop through tasks, add each reward to total
         while (i < len) {
             let task = vector::borrow(&board.tasks, i);
             total = total + task.reward;
@@ -84,10 +87,11 @@ module challenge::day_13 {
     // - Returns u64 (count of completed tasks)
     // - Loops through tasks and counts those with status == Completed
     public fun completed_count(board: &TaskBoard): u64 {
+        // Your code here
         let len = vector::length(&board.tasks);
-        let mut count = 0;
         let mut i = 0;
-        
+        let mut count: u64 = 0;
+
         while (i < len) {
             let task = vector::borrow(&board.tasks, i);
             if (task.status == TaskStatus::Completed) {
