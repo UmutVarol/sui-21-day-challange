@@ -104,5 +104,37 @@ module challenge::day_14 {
     // fun test_create_board_and_add_task() {
     //     // Your code here
     // }
-}
 
+    #[test]
+    fun test_create_board_and_add_task() {
+        let mut board = new_board(@0x123);
+        let task = new_task(string::utf8(b"Gorevi Yap"), 100);
+        add_task(&mut board, task);
+        assert!(vector::length(&board.tasks) == 1, 0);
+    }
+
+    #[test]
+    fun test_complete_task() {
+        let mut board = new_board(@0x123);
+        let task1 = new_task(string::utf8(b"Gorev 1"), 100);
+        let task2 = new_task(string::utf8(b"Gorev 2"), 200);
+        add_task(&mut board, task1);
+        add_task(&mut board, task2);
+        
+        let task_ref = vector::borrow_mut(&mut board.tasks, 0);
+        complete_task(task_ref);
+        
+        assert!(completed_count(&board) == 1, 1);
+    }
+
+    #[test]
+    fun test_total_reward() {
+        let mut board = new_board(@0x123);
+        let task1 = new_task(string::utf8(b"Gorev 1"), 100);
+        let task2 = new_task(string::utf8(b"Gorev 2"), 250);
+        add_task(&mut board, task1);
+        add_task(&mut board, task2);
+        
+        assert!(total_reward(&board) == 350, 2);
+    }
+}
