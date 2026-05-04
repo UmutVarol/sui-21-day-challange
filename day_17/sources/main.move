@@ -9,7 +9,10 @@
 /// day_16/sources/solution.move if needed (note: plotId functionality has been added)
 
 module challenge::day_17 {
-   
+    use std::vector;
+    use sui::object::{Self, UID};
+    use sui::tx_context::TxContext;
+    use sui::transfer;
 
     // Copy from day_16: FarmCounters and Farm
     const MAX_PLOTS: u64 = 20;
@@ -93,6 +96,10 @@ module challenge::day_17 {
     // entry fun create_farm(ctx: &mut TxContext) {
     //     // Your code here
     // }
+    public entry fun create_farm(ctx: &mut TxContext) {
+        let farm = new_farm(ctx);
+        transfer::share_object(farm);
+    }
 
     // TODO: Write a function 'plant_on_farm' that:
     // - Takes farm: &mut Farm, plotId: u8
@@ -100,6 +107,9 @@ module challenge::day_17 {
     // fun plant_on_farm(farm: &mut Farm, plotId: u8) {
     //     // Your code here
     // }
+    public fun plant_on_farm(farm: &mut Farm, plotId: u8) {
+        plant(&mut farm.counters, plotId);
+    }
 
     // TODO: Write a function 'harvest_from_farm' that:
     // - Takes farm: &mut Farm, plotId: u8
@@ -107,5 +117,7 @@ module challenge::day_17 {
     // fun harvest_from_farm(farm: &mut Farm, plotId: u8) {
     //     // Your code here
     // }
+    public fun harvest_from_farm(farm: &mut Farm, plotId: u8) {
+        harvest(&mut farm.counters, plotId);
+    }
 }
-
