@@ -8,9 +8,11 @@
 /// Note: The code includes plotId support with all farm functions. 
 /// You can reference day_18/sources/solution.move for basic structure, 
 
-
 module challenge::day_19 {
-   
+    use std::vector;
+    use sui::object::{Self, UID};
+    use sui::transfer;
+    use sui::tx_context::TxContext;
 
     const MAX_PLOTS: u64 = 20;
     const E_PLOT_NOT_FOUND: u64 = 1;
@@ -113,6 +115,9 @@ module challenge::day_19 {
     // public fun total_planted(farm: &Farm): u64 {
     //     // Your code here
     // }
+    public fun total_planted(farm: &Farm): u64 {
+        farm.counters.planted
+    }
 
     // TODO: Write a function 'total_harvested' that:
     // - Takes farm: &Farm
@@ -120,10 +125,34 @@ module challenge::day_19 {
     // public fun total_harvested(farm: &Farm): u64 {
     //     // Your code here
     // }
+    public fun total_harvested(farm: &Farm): u64 {
+        farm.counters.harvested
+    }
 
     // TODO: (Optional) Write a test that:
     // - Creates a farm
     // - Plants once
     // - Checks that total_planted returns 1
-}
+    #[test_only]
+    use sui::test_scenario;
 
+    #[test]
+    fun test_total_planted() {
+        let mut scenario_val = test_scenario::begin(@0x1);
+        let scenario = &mut scenario_val;
+        
+        let mut farm = new_farm(test_scenario::ctx(scenario));
+        
+        // Bir tohum ekiyoruz (plotId = 5)
+        plant_on_farm(&mut farm, 5);
+        
+        // total_planted fonksiyonunun 1 dönüp dönmediğini test ediyoruz
+        assert!(total_planted(&farm) == 1, 0);
+        
+        // Test bittiğinde objeyi temizliyoruz (Sui test kuralları gereği)
+        let Farm { id, counters: _ } = farm;
+        object::delete(id);
+        
+        test_scenario::end(scenario_val);
+    }
+}
