@@ -9,6 +9,7 @@
 /// day_17/sources/solution.move if needed (note: plotId functionality has been added)
 
 module challenge::day_18 {
+    use std::vector;
     use sui::object::{Self, UID};
     use sui::transfer;
     use sui::tx_context::TxContext;
@@ -107,6 +108,9 @@ module challenge::day_18 {
     // entry fun plant_on_farm_entry(farm: &mut Farm, plotId: u8) {
     //     // Your code here
     // }
+    public entry fun plant_on_farm_entry(farm: &mut Farm, plotId: u8) {
+        plant_on_farm(farm, plotId);
+    }
 
     // TODO: Write an entry function 'harvest_from_farm_entry' that:
     // - Takes farm: &mut Farm, plotId: u8
@@ -114,5 +118,7 @@ module challenge::day_18 {
     // entry fun harvest_from_farm_entry(farm: &mut Farm, plotId: u8) {
     //     // Your code here
     // }
+    public entry fun harvest_from_farm_entry(farm: &mut Farm, plotId: u8) {
+        harvest_from_farm(farm, plotId);
+    }
 }
-
